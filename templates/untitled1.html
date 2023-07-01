@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+		<title>Intelligent Career Guidance System</title>
+
+		<!-- Google font -->
+		<link href="https://fonts.googleapis.com/css?family=Lato:700%7CMontserrat:400,600" rel="stylesheet">
+		
+
+  <link href="{{ url_for('static', filename='chart.css') }}" rel="stylesheet" media="all">
+  
+  <link href="{{ url_for('static', filename='css1/bootstrap.min.css') }}" rel="stylesheet" media="all">
+  
+  <link href="{{ url_for('static', filename='css1/font-awesome.min.css') }}" rel="stylesheet" media="all">
+  
+  <link href="{{ url_for('static', filename='css1/s.css') }}" rel="stylesheet" media="all">
+  <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400' rel='stylesheet' type='text/css'>
+</head>
+<body>
+<!--Header-->
+        <header id="header" class="transparent-nav" style="position: fixed;background-color: rgb(120, 70, 167); top: 0;">
+			<div class="container">
+
+				<div class="navbar-header">
+					<!-- Logo -->
+					<div class="navbar-brand">
+						<a class="logo" href="http://localhost/INTELLIGENT-CAREER-GUIDANCE-SYSTEM-main/main.php">Career.ly</a>
+					</div>
+					<!-- /Logo -->
+
+					<!-- Mobile toggle -->
+					<button class="navbar-toggle">
+						<span></span>
+					</button>
+					<!-- /Mobile toggle -->
+				</div>
+
+				<?php
+					// Check if the user is logged in, if not then redirect him to login page
+					if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true):
+				?>
+
+				<!-- Navigation -->
+				
+				<?php else: ?>
+					<!-- Navigation -->
+				<nav id="nav">
+					<ul class="main-menu nav navbar-nav navbar-right">
+						<li><a href="http://localhost/INTELLIGENT-CAREER-GUIDANCE-SYSTEM-main/main.php">Home</a></li>
+                        <li class="dropdown">
+                            <a class="dropbtn" href="javascript:void(0)">Services<span>&#11167;</span></i></a>
+                            <div class="dropdown-content">
+								<a href="http://localhost/INTELLIGENT-CAREER-GUIDANCE-SYSTEM-main/main.php">Career Prediction</a>
+                                <a href="http://localhost/INTELLIGENT-CAREER-GUIDANCE-SYSTEM-main/courses.php">Courses</a>
+                                <!--<a href="http://127.0.0.1/php%20CAREERLY/blog.php">Blogs</a>
+                                <a href="http://127.0.0.1/php%20CAREERLY/daily_bytes.php">Daily bytes</a>
+                                <a href="http://127.0.0.1/php%20CAREERLY/community.php">Community</a>-->
+								<a href="http://localhost/INTELLIGENT-CAREER-GUIDANCE-SYSTEM-main/blog.php">Knowledge Network</a>
+								
+                            </div>
+                        </li>
+						<li><a href="#about">About Us</a></li>
+						<li><a href="http://localhost/INTELLIGENT-CAREER-GUIDANCE-SYSTEM-main/contact.php">Contact Us</a></li>
+						<li><a href="http://localhost/INTELLIGENT-CAREER-GUIDANCE-SYSTEM-main/logout.php" >Log out</a></li>
+						
+                        
+					</ul>
+				</nav>
+				<!-- /Navigation -->
+				<?php endif ?>
+
+			</div>
+		</header>
+
+
+		<div class="hero-area section">
+
+			<!-- Backgound Image -->
+			<div class="bg-image bg-parallax overlay" style="background-image:url(static/img/bgc2.jpg); " ></div>
+			<!-- /Backgound Image -->
+            <div class="container">
+				<div class="row" >
+					<div class="col-md-10 col-md-offset-1 text-center">
+						<ul class="hero-area-tree">
+							<li><a href="http://localhost/INTELLIGENT-CAREER-GUIDANCE-SYSTEM-main/main.php">Services</a></li>
+							<li><a href="http://127.0.0.1:5000/">Career Prediction</a></li>
+						</ul>
+						<h1 class="white-text">Show us Your Technical Knowledge!</h1>
+
+					</div>
+				</div>
+			</div>
+		
+
+		</div>
+
+    <!-- Icons font CSS-->
+
+    <link href=" {{ url_for('static', filename='vendor/mdi-font/css/material-design-iconic-font.min.css') }}" rel="stylesheet" media="all">
+
+    <link href="{{ url_for('static', filename='vendor/font-awesome-4.7/css/font-awesome.min.css') }}" rel="stylesheet" media="all">
+    <link href="{{ url_for('static', filename='css/range.scss') }}" rel="stylesheet" media="all">
+    <!-- Font special for pages-->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
+
+    <!-- Vendor CSS-->
+
+    <link href="{{ url_for('static', filename='vendor/select2/select2.min.css') }}" rel="stylesheet" media="all">
+
+    <link href="{{ url_for('static', filename='vendor/datepicker/daterangepicker.css') }}" rel="stylesheet" media="all">
+      <!-- Main CSS-->
+
+    <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet" media="all">
+</head>
+
+<body>
+    <div class="page-wrapper bg-gra-03 p-t-45 p-b-50">
+        <div class="wrapper wrapper--w790">
+            <div class="card card-5">
+                <div class="card-heading">
+                    <h2 class="title">Rate Yourself.....!!</h2>
+				
+                </div>
+				
+				
+                <div class="card-body">
+                    
+					<form  method="POST" action="{{url_for('result')}}">
+						
+					 <div class="form-group row">
+	<label class="col-sm-3 col-form-label">1) What's your strongest programming language?</label>
+	<div class="col-sm-9">
+		<div class="form-check">
+			<input class="form-check-input" type="radio" name="question-1-answers"  id="question-1-answers-A" value="A" >
+			<label class="form-check-label" for="question-1-answers-A">A) Python</label>
+		</div>
+		<div class="form-check">
+			<input class="form-check-input" type="radio" name="question-1-answers"  id="question-1-answers-B" value="B">
+			<label class="form-check-label" for="question-1-answers-B">B) C++</label>
+		</div>
+		<div class="form-check">
+			<input class="form-check-input" type="radio" name="question-1-answers"  id="question-1-answers-C" value="C">
+			<label class="form-check-label" for="question-1-answers-B">C) Java</label>
+		</div>
+		<div class="form-check">
+			<input class="form-check-input" type="radio" name="question-1-answers" id="question-1-answer-D" value="D">
+			<label class="form-check-label" for="question-1-answers-D">D) React</label>
+		</div>
+		
+	                 </div>
+                   </div>
+				 <div class="form-group row">
+	<label class="col-sm-3 col-form-label">2) Can you explain the software development cycle?</label>
+	<div class="col-sm-9">
+		<div class="form-check">
+			<input class="form-check-input" type="radio" name="question-2-answers"  id="question-2-answers-A" value="A" >
+			<label class="form-check-label" for="question-2-answers-A">A) Design, implementation, maintenance, retirement</label>
+		</div>
+		<div class="form-check">
+			<input class="form-check-input" type="radio" name="question-2-answers"  id="question-2-answers-B"  value="B">
+			<label class="form-check-label" for="question-2-answers-B" >B) Requirement gathering, coding, testing, deployment</label>
+		</div>
+		<div class="form-check">
+			<input class="form-check-input" type="radio" name="question-2-answers"  id="question-2-answers-C"  value="C">
+			<label class="form-check-label" for="question-2-answers-C" >C) Planning, analysis, design, implementation</label>
+		</div>
+		<div class="form-check">
+			<input class="form-check-input" type="radio" name="question-2-answers"  id="question-2-answers-D"  value="D">
+			<label class="form-check-label" for="question-2-answers-D" >D) All of the above</label>
+		</div>
+		
+	                 </div>
+                   </div>
+			
+
+      <div class="form-group row">
+	<label class="col-sm-3 col-form-label">3) What is a Stream?</label>
+	<div class="col-sm-9">
+		<div class="form-check">
+			<input class="form-check-input" type="radio" name="question-3-answers" id="question-3-answers-A" value="A" >
+			<label class="form-check-label" for="question-3-answers-A">A) A data structure for storing elements</label>
+		</div>
+		<div class="form-check">
+			<input class="form-check-input" type="radio" name="question-3-answers" id="question-3-answers-B" value="B">
+			<label class="form-check-label" for="question-3-answers-B">B) A sequence of characters</label>
+		</div>
+		<div class="form-check">
+			<input class="form-check-input" type="radio" name="question-3-answers" id="question-3-answers-C" value="C">
+			<label class="form-check-label" for="question-3-answers-C">C)  A continuous flow of data</label>
+		</div>
+		<div class="form-check">
+			<input class="form-check-input" type="radio" name="question-3-answers" id="question-3-answers-D" value="D">
+			<label class="form-check-label" for="question-3-answers-D">D) A user interface component</label>
+		</div>
+		
+	                 </div>
+                   </div>
+			
+			    <div class="form-group row">
+	<label class="col-sm-3 col-form-label">4) What is a difference between a class and a superclass?</label>
+	<div class="col-sm-9">
+		<div class="form-check">
+			<input class="form-check-input" type="radio" name="question-4-answers" id="question-4-answers-A" value="A" >
+			<label class="form-check-label" for="question-4-answers-A">A)  A class is derived from a superclass</label>
+		</div>
+		<div class="form-check">
+			<input class="form-check-input" type="radio" name="question-4-answers" id="question-4-answers-B" value="B">
+			<label class="form-check-label" for="question-4-answers-B">B) A superclass is derived from a class<</label>
+		</div>
+		<div class="form-check">
+			<input class="form-check-input" type="radio" name="question-4-answers" id="question-4-answers-C" value="C">
+			<label class="form-check-label" for="question-4-answers-C">C) They are unrelated concepts</label>
+		</div>
+		<div class="form-check">
+			<input class="form-check-input" type="radio" name="question-4-answers" id="question-4-answers-D" value="D">
+			<label class="form-check-label" for="question-4-answers-D">D) They are the same</label>
+		</div>
+		
+	                 </div>
+                   </div>
+
+			
+			                  <div class="form-group row">
+	<label class="col-sm-3 col-form-label">5) What is the difference between primary and secondary memory?</label>
+	<div class="col-sm-9">
+		<div class="form-check">
+			<input class="form-check-input" type="radio" name="question-5-answers"  id="question-5-answers-A"  value="A">
+			<label class="form-check-label" for="question-5-answers-A">A) They are same properties</label>
+		</div>
+		<div class="form-check">
+			<input class="form-check-input" type="radio" name="question-5-answers"  id="question-5-answers-B " value="B">
+			<label class="form-check-label" for="question-5-answers-B ">B) They are different names for the same memory</label>
+		</div>
+		<div class="form-check">
+			<input class="form-check-input" type="radio" name="question-5-answers"  id="question-5-answers-C " value="C">
+			<label class="form-check-label" for="question-5-answers-C ">C) Primary is non-volatile, Secondary is volatile</label>
+		</div>
+		<div class="form-check">
+			<input class="form-check-input" type="radio" name="question-5-answers"  id="question-5-answers-D " value="D">
+			<label class="form-check-label" for="question-5-answers-D ">D) Primary is volatile, Secondary is non-volatile</label>
+		</div>
+		
+	                 </div>
+                   </div>
+
+              <div class="form-group row">
+	<label class="col-sm-3 col-form-label">6) Can you name and define access modifiers?</label>
+	<div class="col-sm-9">
+		<div class="form-check">
+			<input class="form-check-input" type="radio" name="question-6-answers" id="question-6-answers-A"  value="A">
+			<label class="form-check-label" for="question-6-answers-A">A) Public, protected, private</label>
+		</div>
+		<div class="form-check">
+			<input class="form-check-input" type="radio" name="question-6-answers" id="question-6-answers-B " value="B">
+			<label class="form-check-label" for="question-6-answers-B ">B) Local, global, static</label>
+		</div>
+		<div class="form-check">
+			<input class="form-check-input" type="radio" name="question-6-answers" id="question-6-answers-C " value="C">
+			<label class="form-check-label" for="question-6-answers-C ">C) Read, write, execute</label>
+		</div>
+		<div class="form-check">
+			<input class="form-check-input" type="radio" name="question-6-answers" id="question-6-answers-D " value="D">
+			<label class="form-check-label" for="question-6-answers-D ">D) Internal, external, inline</label>
+		</div>
+		
+	                 </div>
+                   </div>
+        
+                  <div class="form-group row">
+	<label class="col-sm-3 col-form-label">7) What is a constructor?</label>
+	<div class="col-sm-9">
+		<div class="form-check">
+			<input class="form-check-input" type="radio" name="question-7-answers" id="question-7-answers-A"  value="A">
+			<label class="form-check-label" for="question-7-answers-A">A) A type of loop structure</label>
+		</div>
+		<div class="form-check">
+			<input class="form-check-input" type="radio" name="question-7-answers" id="question-7-answers-B " value="B">
+			<label class="form-check-label" for="question-7-answers-B ">B) A method used to initialize an object</label>
+		</div>
+		<div class="form-check">
+			<input class="form-check-input" type="radio" name="question-7-answers" id="question-7-answers-C " value="C">
+			<label class="form-check-label" for="question-7-answers-C ">C) A programming language keyboard</label>
+		</div>
+		<div class="form-check">
+			<input class="form-check-input" type="radio" name="question-7-answers" id="question-7-answers-C " value="D">
+			<label class="form-check-label" for="question-7-answers-C ">D) A data type used to store numbers</label>
+		</div>
+		
+	                 </div>
+                   </div>
+
+                             <div class="form-group row">
+	<label class="col-sm-3 col-form-label">8) What is machine learning?</label>
+	<div class="col-sm-9">
+		<div class="form-check">
+			<input class="form-check-input" type="radio" name="question-8-answers" id="question-8-answers-A"  value="A">
+			<label class="form-check-label" for="question-8-answers-A">A) A process of making machines perform tasks without explicit programming.</label>
+		</div>
+		<div class="form-check">
+			<input class="form-check-input" type="radio" name="question-8-answers" id="question-8-answers-B " value="B">
+			<label class="form-check-label" for="question-8-answers-B ">B) A technique for mimicking human intelligence in machines.</label>
+		</div>
+		<div class="form-check">
+			<input class="form-check-input" type="radio" name="question-8-answers" id="question-8-answers-C " value="C">
+			<label class="form-check-label" for="question-8-answers-C ">C) A branch of artificial intelligence that deals with computer systems capable of learning from data.</label>
+		</div>
+		<div class="form-check">
+			<input class="form-check-input" type="radio" name="question-8-answers" id="question-8-answers-D " value="D">
+			<label class="form-check-label" for="question-8-answers-D ">D) A type of programming language</label>
+		</div>
+		
+	                 </div>
+                   </div>
+
+        				 <div class="form-group row">
+	<label class="col-sm-3 col-form-label">9) What is deep learning?</label>
+	<div class="col-sm-9">
+		<div class="form-check">
+			<input class="form-check-input" type="radio" name="question-9-answers" id="question-9-answers-A"  value="A">
+			<label class="form-check-label" for="question-9-answers-A">A) A method of training models on labeled data.</label>
+		</div>
+		<div class="form-check">
+			<input class="form-check-input" type="radio" name="question-9-answers" id="question-9-answers-B " value="B">
+			<label class="form-check-label" for="question-9-answers-B ">B) A subfield of machine learning that focuses on neural networks.</label>
+		</div>
+		<div class="form-check">
+			<input class="form-check-input" type="radio" name="question-9-answers" id="question-9-answers-C " value="C">
+			<label class="form-check-label" for="question-9-answers-C ">C) A type of data analysis technique.</label>
+		</div>
+		<div class="form-check">
+			<input class="form-check-input" type="radio" name="question-9-answers" id="question-9-answers-D " value="D">
+			<label class="form-check-label" for="question-9-answers-D ">D) A programming language library.</label>
+		</div>
+		
+	                 </div>
+                   </div>
+
+                    <div class="form-group row">
+	<label class="col-sm-3 col-form-label">10) How do you define Artificial Intelligence?</label>
+	<div class="col-sm-9">
+		<div class="form-check">
+			<input class="form-check-input" type="radio" name="question-10-answers" id="question-10-answers-A"  value="A">
+			<label class="form-check-label" for="question-10-answers-A">A) The simulation of human intelligence in machines.</label>
+		</div>
+		<div class="form-check">
+			<input class="form-check-input" type="radio" name="question-10-answers" id="question-10-answers-B " value="B">
+			<label class="form-check-label" for="question-10-answers-B ">B) The ability of a machine to understand and carry out tasks like a human.</label>
+		</div>
+		<div class="form-check">
+			<input class="form-check-input" type="radio" name="question-10-answers" id="question-10-answers-B " value="C">
+			<label class="form-check-label" for="question-10-answers-B ">C) The study and development of computer systems capable of performing tasks that would require human intelligence.</label>
+		</div>
+		<div class="form-check">
+			<input class="form-check-input" type="radio" name="question-10-answers" id="question-10-answers-B " value="D">
+			<label class="form-check-label" for="question-10-answers-B ">D) All of the above.</label>
+		</div>
+		
+	                 </div>
+                   </div>
+		
+
+
+                <center><button class="btn btn--radius-2 btn--red" type="submit" >CHECK</button></center>
+                </div>						
+				</div>
+</div>		
+
+</form>		
+			
+    <!-- Footer -->
+		<footer id="footer" class="section">
+
+			<!-- container -->
+			<div class="container">
+
+				<!-- row -->
+				<div class="row">
+
+					<!-- footer logo -->
+					<div class="col-md-6">
+						<div class="footer-logo">
+							<a class="logo" style="font-size: 30px;" href="main.php">Career.ly</a>
+						</div>
+					</div>
+					<!-- footer logo -->
+
+
+				</div>
+				<!-- /row -->
+
+				<!-- row -->
+				<div id="bottom-footer" class="row">
+
+					<!-- social -->
+					<div class="col-md-4 col-md-push-8">
+						
+					</div>
+					<!-- /social -->
+
+					<!-- copyright -->
+					<div class="col-md-8 col-md-pull-4">
+						<div class="footer-copyright">
+							<span>&copy; Copyright 2021. All Rights Reserved. </span>
+						</div>
+					</div>
+					<!-- /copyright -->
+					</div>
+				<!-- row -->
+
+			</div>
+			<!-- /container -->
+
+		</footer>
+		<!-- /Footer -->
+		
+
+</body>
+
+</html>
